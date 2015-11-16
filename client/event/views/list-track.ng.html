@@ -1,45 +1,89 @@
-<a href="/newtrack"><button class="btn btn-primary">Nuovo</button></a>
+<a href="/newtrack">
+    <button class="btn btn-primary">Nuovo</button>
+</a>
 <div class="row">
-	<div class="col-md-6">
-		<div class="row">
-			<h5>Distance</h5>
-			<rzslider
-			rz-slider-model="slider.min"
-			rz-slider-high="slider.max"
-			rz-slider-options="slider.options"></rzslider>
-		</div>
-		<ul class="list-group">
-			<li class ="list-group-item" ng-repeat="event in events" ng-click="markClick(event)" >
-				<h5 class="list-group-item-heading">{{event.title}}</h5>
-				<p class="list-group-item-text">{{event.trackanalysis.distance}}  <a ng-href="/events/{{event._id}}">View</a> <span class="glyphicon glyphicon-zoom-in" ng-click="zoomselected(event)"></span></p>
-			</li>
-		</ul>
-	</div>
-	<div class="col-md-6">
-	<div class="row">
-	<div class="col-md-12">
-		<h3>{{event.title}}</h3>
-	</div>
-		
-	</div>
-		<div class="row">
-			<ui-gmap-google-map  class="main-map col-md-12" center="map.center" bounds="map.bounds" pan="'true'" zoom="map.zoom" options="options" control="map.control"  events="mapevents">
-			<ui-gmap-markers doCluster="'true'" idkey="'_id'" models="events" coords="'trackanalysis.start'" events="map.markersEvents">
-			</ui-gmap-markers>
-			<ui-gmap-polyline ng-if="paths" ng-repeat="feature in paths" path="feature.geometry" static="'true'" ></ui-gmap-polyline>
-			
-			</ui-gmap-google-map>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<div class="panel panel-default">
-					<div class="panel-body">
-					  <highchart id="chart1" config="chartConfig" class="col-md-12"></highchart>
-						<!--<canvas id="line" class="chart chart-line" chart-options="chartoptions" chart-hover="" chart-data="data" chart-labels="labels"  >
-						</canvas>-->
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="col-md-6">
+        <div class="row">
+            <h5>Distance</h5>
+            <rzslider
+                    rz-slider-model="slider.min"
+                    rz-slider-high="slider.max"
+                    rz-slider-options="slider.options"></rzslider>
+        </div>
+        Update on map move <input type="checkbox" ng-model="updateOnMap">
+
+        <ul class="tracks">
+            <li class="row event" ng-repeat="event in events">
+                <div class="col-md-1">
+                    <div class="row">
+                        <span class="glyphicon glyphicon-chevron-up"></span>
+                    </div>
+                    <div class="row">
+                        3
+                    </div>
+                    <div class="row">
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <a class="track-title" ng-href="/events/{{event._id}}"><h5>{{event.title}}</h5></a>
+                    </div>
+                    <div class="row track-info  ">
+                        <div class="col-md-3">
+                            {{event.trackanalysis.distance| number:0 }} mt
+                        </div>
+                        <div class="col-md-3">
+                            {{event.trackanalysis.climb | number:0 }} mt
+                        </div>
+                        <div class="col-md-3">
+                            {{event.trackanalysis.descent | number:0 }} mt
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1 ">
+                    <div class="row">
+                        <button class="btn btn-success" ng-click="zoomselected(event)"><span
+                                class="glyphicon glyphicon-zoom-in"></span></button>
+                    </div>
+                </div>
+                <div class="col-md-1 ">
+                    <div class="row">
+                        <button class="btn btn-success" ng-click="markClick(event)"><span
+                                class="glyphicon glyphicon-map-marker"></span></button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>{{event.title}}</h3>
+            </div>
+
+        </div>
+        <div class="row">
+            <ui-gmap-google-map class="main-map col-md-12" center="map.center" bounds="map.bounds" pan="'true'"
+                                zoom="map.zoom" options="options" control="map.control" events="mapevents">
+                <ui-gmap-markers doCluster="'true'" idkey="'_id'" models="events" coords="'trackanalysis.start'"
+                                 events="map.markersEvents">
+                </ui-gmap-markers>
+                <ui-gmap-polyline ng-if="paths" ng-repeat="feature in paths" path="feature.geometry"
+                                  static="'true'"></ui-gmap-polyline>
+
+            </ui-gmap-google-map>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <highchart id="chart1" config="chartConfig" class="col-md-12"></highchart>
+                        <!--<canvas id="line" class="chart chart-line" chart-options="chartoptions" chart-hover="" chart-data="data" chart-labels="labels"  >
+                        </canvas>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

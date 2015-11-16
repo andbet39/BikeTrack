@@ -1,6 +1,12 @@
 /* CSS declarations go here */
 
+body{
+    font-family: 'Roboto', sans-serif;
+}
 
+h1,h2,h3,h4,h5{
+    font-family: 'Open Sans', sans-serif;
+}
 .angular-google-map-container { height: 300px; }
 
 .drop-box {
@@ -20,4 +26,41 @@
  
 .drop-box.dragover-err {
     border: 5px dashed red;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.tracks, .tracks>ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+a.track-title:hover{
+    text-decoration: none;
+}
+.track-title>h5{
+    font-weight: 700;
+    font-size:16px;
+}
+
+.track-info{
+    color: grey;
+    font-weight: 700;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.event{
+    border-bottom: 1px solid;
+    border-color: darkgrey;
+    padding-bottom: 5px;
+    padding-top: 5px;
+
 }
