@@ -1,0 +1,38 @@
+<h1>{{event.title}}</h1>
+<div class="row">
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Track infos</h3>
+			</div>
+			<div class="panel-body">
+				<p>Distance : {{event.trackanalysis.distance}}</p>
+<p>Climb : {{event.trackanalysis.climb}}</p>
+<p>Descent : {{event.trackanalysis.descent}}</p>
+			</div>
+		</div>
+	</div>
+	
+<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Altitude profile</h3>
+			</div>
+			<div class="panel-body">
+				<canvas id="line" class="chart chart-line" chart-options="chartoptions" chart-hover="" chart-data="data" chart-labels="labels"  >
+			</canvas>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="mapcontainer">
+	<ui-gmap-google-map center="event.trackanalysis.center" bounds="event.trackanalysis.bounds" zoom="map.zoom" options="options" >
+	<ui-gmap-polyline ng-repeat="feature in paths" path="feature.geometry" fit="fit" static="'true'" ></ui-gmap-polyline>
+	</ui-gmap-google-map>
+</div>
+	</div>
+</div>

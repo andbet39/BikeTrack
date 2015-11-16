@@ -1,0 +1,28 @@
+<h1>Create new track</h1>
+
+<h1 contenteditable ng-model="event.title"></h1>
+<div class="row">
+    <div class="col-md-6">
+        
+        <div ngf-drop ngf-select
+     ngf-change="saveTrack($files)"
+     ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box"
+     ngf-multiple="true" ngf-allow-dir="false" ngf-accept="'*.gpx'"
+     ngf-drop-available="dropAvailable">
+    <div>Click here to upload GPX file</div>
+    <div>
+        <strong>OR</strong>
+    </div>
+    <div ng-show="dropAvailable">You can also drop GPX file here</div>
+</div>
+    </div>
+    <ui-gmap-google-map class="col-md-6" center='map.center' zoom='map.zoom' bounds='event.trackanalysis.bounds'>
+
+    <ui-gmap-polyline ng-repeat="feature in paths" path="feature.geometry" ></ui-gmap-polyline>
+
+</ui-gmap-google-map>
+</div>
+
+<button ng-click="save()">Save</button>
+
+
