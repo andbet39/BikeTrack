@@ -97,18 +97,13 @@ angular.module("trackShare").controller("ListTrackCtrl", function ($scope, $mete
 
     $scope.markClick = function (event) {
 
-        console.log(event);
         $scope.chartConfig.loading = true;
-        $meteor.subscribe('simpleevent', event._id).then(function (subscriptionHandle) {
+        $meteor.subscribe('fullevent', event._id).then(function (subscriptionHandle) {
 
             $scope.event = $meteor.object(Events, event._id, false);
 
-            $scope.paths = $scope.event.geosimple.features;
-
-
-            var data = [event.trackanalysis.alt_profile];
-
-            $scope.chartConfig.series[0].data = event.trackanalysis.alt_profile;
+            $scope.paths = $scope.event.geo.features;
+            $scope.chartConfig.series[0].data = $scope.event.trackanalysis.alt_profile;
 
             subscriptionHandle.stop();
             $scope.chartConfig.loading = false;
@@ -118,27 +113,33 @@ angular.module("trackShare").controller("ListTrackCtrl", function ($scope, $mete
 
     $scope.zoomselected = function(event) {
         console.log(event);
-//        $scope.map.center = event.center;
 
-        var ne = new mapapi.LatLng(event.trackanalysis.bounds.northeast.latitude, event.trackanalysis.bounds.northeast.longitude);
+        $meteor.subscribe('fullevent', event._id).then(function (subscriptionHandle) {
 
-        var sw = new mapapi.LatLng(event.trackanalysis.bounds.southwest.latitude, event.trackanalysis.bounds.southwest.longitude);
+            $scope.event = $meteor.object(Events, event._id, false);
 
-        var bounds = new mapapi.LatLngBounds(ne, sw);
+            $scope.paths = $scope.event.geo.features;
+            $scope.chartConfig.series[0].data = $scope.event.trackanalysis.alt_profile;
 
-        //$scope.map.control.getGMap().fitBounds(bounds);
-        $scope.map.bounds = event.trackanalysis.bounds;
-        var topright = bounds.getNorthEast();
-        var bottomleft = bounds.getSouthWest();
+            $scope.chartConfig.loading = false;
+         
+            $scope.map.center =$scope.event.start;
+            $scope.map.zoom=12;
+                     
+            subscriptionHandle.stop();
 
-        var box = [
-            [bottomleft.lng(), bottomleft.lat()],
-            [topright.lng(), topright.lat()]
-        ];
-        if($scope.updateOnMap) {
-            $scope.box = box;
-        }
+            var topright = bounds.getNorthEast();
+            var bottomleft = bounds.getSouthWest();
 
+            var box = [
+                [bottomleft.lng(), bottomleft.lat()],
+                [topright.lng(), topright.lat()]
+            ];
+            if($scope.updateOnMap) {
+                $scope.box = box;
+            }
+        
+        });
     };
 
 

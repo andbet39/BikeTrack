@@ -69,7 +69,10 @@
                 <ui-gmap-markers doCluster="'true'" idkey="'_id'" models="events" coords="'trackanalysis.start'"
                                  events="map.markersEvents">
                 </ui-gmap-markers>
-                <ui-gmap-polyline ng-if="paths" ng-repeat="feature in paths" path="feature.geometry"
+
+                 <ui-gmap-rectangle ng-if="dummybounds" bounds="dummybounds" fill="'#FFFFFF .5'"></ui-gmap-rectangle>
+                
+                <ui-gmap-polyline ng-if="paths" fit="'true'" ng-repeat="feature in paths" path="feature.geometry"
                                   static="'true'"></ui-gmap-polyline>
 
             </ui-gmap-google-map>
